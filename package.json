@@ -1,0 +1,23 @@
+{
+  "name": "ts-designpatterns",
+  "version": "1.0.0",
+  "description": "TypeScript implementation solutions using GOF Design Patterns",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brhrmaster/TS-DesignPatterns.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brhrmaster/TS-DesignPatterns/issues"
+  },
+  "homepage": "https://github.com/brhrmaster/TS-DesignPatterns#readme",
+  "devDependencies": {
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.4.5"
+  }
+}
