@@ -2,9 +2,55 @@
   "name": "ts-designpatterns",
   "version": "1.0.0",
   "description": "TypeScript implementation solutions using GOF Design Patterns",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/index.js",
+    "dist/index.d.ts"
+  ],
   "scripts": {
-    "test": "test"
+    "env": "cross-env NODE_OPTIONS=--max_old_space_size=4096",
+    "updates": "npx npm-check-updates --target minor -u && npm install",
+    "esbuild": "esbuild ./src/index.ts --entry-names=[dir]/[name] --bundle --platform=node --target=node18.12 --outdir=dist --minify",
+    "test": "jest --no-cache --silent --runInBand",
+    "clear": "rimraf dist && rimraf coverage && rimraf reports && rimraf badges && rimraf .serverless",
+    "dts": "dts-bundle-generator --out-file dist/index.d.ts --no-banner src/index.ts",
+    "coverage": "jest --coverage --no-cache --silent --runInBand",
+    "lint": "eslint . --fix --ext .ts",
+    "audit": "audit-ci --low --report-type summary --skip-dev",
+    "build": "npm run env && npm run clear && npm run lint && npm run coverage && npm run audit && npm run esbuild && npm run dts",
+    "deploy": "serverless deploy",
+    "deploy:doctor": "serverless doctor"
+  },
+  "jest": {
+    "setupFiles": [
+      "dotenv/config"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "testRegex": "^.+\\.spec\\.ts$",
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "./src/**"
+    ],
+    "coverageReporters": [
+      "json-summary",
+      "text",
+      "lcov"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 100,
+        "branches": 100,
+        "functions": 100,
+        "lines": 100
+      }
+    }
   },
   "repository": {
     "type": "git",
@@ -17,7 +63,21 @@
   },
   "homepage": "https://github.com/brhrmaster/TS-DesignPatterns#readme",
   "devDependencies": {
-    "ts-loader": "^9.5.1",
-    "typescript": "^5.4.5"
+    "@types/jest": "^27.5.2",
+    "@types/node": "^17.0.45",
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
+    "@typescript-eslint/parser": "^5.44.0",
+    "eslint": "^8.28.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-code-complexity": "^1.1.1",
+    "eslint-config-node": "^4.1.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^26.9.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-security": "^1.5.0",
+    "ts-jest": "^27.1.5",
+    "ts-node": "^10.9.1"
   }
 }
